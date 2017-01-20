@@ -12,10 +12,10 @@ class Deck {
     let value = [0,1,2,3,4,5,6,7,8,9]
     let colors: [Color:Int] = [.red : 0, .green : 1, .blue : 2, .yellow : 3]
     let types: [Type] = [.regular, .reverse, .skip, .drawTwo, .wild, .wildDrawFour]
-    var cardSet = [Int:Card]()
+    var cardSet = [Int:Card]() //Track of id -> unique card: [1:red0, 2: red1, 3: red2]...
     
    func createDeck() -> [Int:Int] {
-        var cardDeck = [Int:Int]()
+        var cardDeck = [Int:Int]() //Track of amount: [1:1, 2:2, 3:2]...
         var counter = 1
         
         for type in types {
@@ -23,19 +23,20 @@ class Deck {
             case .regular:
                 for color in colors {
                     for i in 0...9 {
-                        let card = Card(id: counter, type: type, color: color.key, value: i)
+                        let card = Card(id: counter, type: type, color: color.key, value: i) //3, reg, red, i=2
                         if i == 0 {
                             cardDeck[card.id] = 1
                             cardSet[card.id] = card
                             counter += 1
                         }
                         else {
-                            cardDeck[card.id] = 2
+                            cardDeck[card.id] = 2 //
                             cardSet[card.id] = card
                             counter += 1
                         }
                     }
                 }
+                
             case .reverse, .skip, .drawTwo:
                 for color in colors {
                     let card = Card(id: counter, type: type, color: color.key, value: nil)
@@ -52,6 +53,19 @@ class Deck {
         }
         return cardDeck
     }
+    
+    func deal(_ deck: [Int: Int]) -> [Int: Int]? {
+        //7 cards
+        var playerHand = [Int:Int]()
+        var updatedDeck = deck
+        
+        for _ in 1...7 {
+            let card = Int(arc4random_uniform(6) + 1)
+        }
+        return nil
+    }
+    
+    
     
     //    let cardDeck = createDeck()
     //    var sum = 0
