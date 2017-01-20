@@ -14,30 +14,51 @@ import UIKit
 class ViewController: UIViewController {
     
     let deck = Deck()
+    var currentDeck = [Int:Int]()
+    var set = [Int:Card]()
+    var hand = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-            //1. create set (permanent throughout whole game)
-        let set = deck.cardSet
+        //1. new deck (needs to come first)
+        currentDeck = deck.createDeck()
+        //dump("DECK >>>> \(newDeck)")
+        
+        //2. create set (permanent throughout whole game)
+        set = deck.cardSet
         //dump("SET >>>> \(set)")
         //dump(set[1]) //BLUE 0 - ID: 1 - AMOUNT: 1
         
-            //2. create new deck
-        var newDeck = deck.createDeck()
-        //dump("DECK >>>> \(newDeck)")
         
-            //3. create new hand from deck
-        var hand = [Int]()
-        for _ in 1...7 {
-            let cardID = Int(arc4random_uniform(UInt32(newDeck.count)) + 1)
-            //dump(cardID)
-            //hand.append(cardID)
-        }
+        //3. create new hand from deck
+        newHand()
         
-            //checking cards in hand
-        
+        //access one card
+        //dump(set[hand[1]]?.color)
     }
+    
+    func newGame() {
+        currentDeck = deck.createDeck()
+        newHand()
+    }
+    
+    func newHand() -> [Int] {
+            for _ in 1...7 {
+                let cardID = Int(arc4random_uniform(UInt32(set.count)) + 1)
+                
+                if currentDeck[cardID]! > 0 {
+                    hand.append(cardID)
+                    currentDeck[cardID]! -= 1
+                }
+            
+        }
+        dump("players and hands >>>> \(hand)")
+        return hand
+    }
+    
+    
+    
     
     
 }

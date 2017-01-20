@@ -14,7 +14,7 @@ class Deck {
     let types: [Type] = [.regular, .reverse, .skip, .drawTwo, .wild, .wildDrawFour]
     var cardSet = [Int:Card]() //Track of id -> unique card: [1:red0, 2: red1, 3: red2]...
     
-   func createDeck() -> [Int:Int] {
+    func createDeck() -> [Int:Int] {
         var cardDeck = [Int:Int]() //Track of amount: [1:1, 2:2, 3:2]...
         var counter = 1
         
@@ -54,16 +54,9 @@ class Deck {
         return cardDeck
     }
     
-    func deal(_ deck: [Int: Int]) -> [Int: Int]? {
-        //7 cards
-        var playerHand = [Int:Int]()
-        var updatedDeck = deck
-        
-        for _ in 1...7 {
-            let card = Int(arc4random_uniform(6) + 1)
-        }
-        return nil
-    }
+   
+    
+    
     
     
     
