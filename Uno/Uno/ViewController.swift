@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var currentDeck = [Int:Int]()
     var set = [Int:Card]()
     var hand = [Int]()
+    var players = [Int:Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +33,19 @@ class ViewController: UIViewController {
         
         
         //3. create new hand from deck
-        newHand()
+        //newHand()
         
         //access one card
         //dump(set[hand[1]]?.color)
+        
+        newGame(2)
+        dump("New game 2 players >>> \(players)")
     }
     
-    func newGame() {
+    func newGame(_ players: Int) {
         currentDeck = deck.createDeck()
         newHand()
+        numOfplayers(players)
     }
     
     func newHand() -> [Int] {
@@ -51,10 +56,15 @@ class ViewController: UIViewController {
                     hand.append(cardID)
                     currentDeck[cardID]! -= 1
                 }
-            
         }
-        dump("players and hands >>>> \(hand)")
+        //dump("players and hands >>>> \(hand)")
         return hand
+    }
+    
+    func numOfplayers(_ players: Int) {
+        for num in 1...players {
+            self.players[num] = self.newHand()
+        }
     }
     
     
