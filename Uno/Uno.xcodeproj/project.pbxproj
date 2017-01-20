@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B12BF891E31A28400EBFD3D /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B12BF881E31A28400EBFD3D /* Card.swift */; };
 		E35BDC781E2EA92800AC57E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BDC771E2EA92800AC57E1 /* AppDelegate.swift */; };
 		E35BDC7A1E2EA92800AC57E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35BDC791E2EA92800AC57E1 /* ViewController.swift */; };
 		E35BDC7D1E2EA92800AC57E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E35BDC7B1E2EA92800AC57E1 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B12BF881E31A28400EBFD3D /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		E35BDC741E2EA92800AC57E1 /* Uno.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uno.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E35BDC771E2EA92800AC57E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E35BDC791E2EA92800AC57E1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		E35BDC8C1E2EA94B00AC57E1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9B12BF881E31A28400EBFD3D /* Card.swift */,
 				E35BDC8A1E2EA94300AC57E1 /* Deck.swift */,
 			);
 			name = Model;
@@ -158,6 +161,7 @@
 				E35BDC7A1E2EA92800AC57E1 /* ViewController.swift in Sources */,
 				E35BDC8B1E2EA94300AC57E1 /* Deck.swift in Sources */,
 				E35BDC781E2EA92800AC57E1 /* AppDelegate.swift in Sources */,
+				9B12BF891E31A28400EBFD3D /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
