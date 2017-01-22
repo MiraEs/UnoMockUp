@@ -13,12 +13,12 @@ class ViewController: UIViewController {
     var cardSet: [Int:Card] = [:]
     var cardDeck: [Int:Int] = [:]
     var discardedPile: [Int:Int] = [:]
+    var discardedPileArr: [Int] = []
     
     var playerOneHand: [Int:Int] = [:]
     var playerTwoHand: [Int:Int] = [:]
     var playerThreeHand: [Int:Int] = [:]
     var playerFourHand: [Int:Int] = [:]
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +37,8 @@ class ViewController: UIViewController {
         print(playerTwoHand)
         print(playerThreeHand)
         print(playerFourHand)
-        
         print(cardDeck)
+        print(discardedPile)
     }
     
     //Initial Game Start - Populate All Player Hands
@@ -48,6 +48,8 @@ class ViewController: UIViewController {
         playerTwoHand = populateInitialPlayerHand()
         playerThreeHand = populateInitialPlayerHand()
         playerFourHand = populateInitialPlayerHand()
+        
+        generateDealCard()
     }
     
     //Draw a new card
@@ -64,11 +66,13 @@ class ViewController: UIViewController {
             returnHand[generatedId]! += 1
             cardDeck[generatedId]! -= 1
             discardedPile[generatedId]! += 1
+            discardedPileArr.append(generatedId)
         }
         else {
             returnHand[generatedId] = 1
             cardDeck[generatedId]! -= 1
             discardedPile[generatedId]! += 1
+            discardedPileArr.append(generatedId)
         }
         return returnHand
     }
@@ -89,16 +93,33 @@ class ViewController: UIViewController {
                 returnHand[generatedId]! += 1
                 cardDeck[generatedId]! -= 1
                 discardedPile[generatedId]! += 1
+                discardedPileArr.append(generatedId)
             }
             else {
                 returnHand[generatedId] = 1
                 cardDeck[generatedId]! -= 1
                 discardedPile[generatedId]! += 1
+                discardedPileArr.append(generatedId)
             }
         }
         return returnHand
     }
     
+    //Generate the Deal Card on the Table
+    
+    func generateDealCard() {
+        
+        var generatedId = randomCardIdGenerator()
+        
+        while cardDeck[generatedId] == 0 {
+            generatedId = randomCardIdGenerator()
+        }
+        discardedPileArr.append(generatedId)
+    }
+
+    func chooseUserHand()  {
+        
+    }
 }
 
 //Generating a Random Card Id - 0 to 53
