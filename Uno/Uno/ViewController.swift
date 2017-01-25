@@ -6,128 +6,101 @@
 //  Copyright © 2017 C4Q. All rights reserved.
 //
 
+//CARD SET = Lists IDs -> Card
+//CARD DECK = Lists IDS -> Amount of each card set
+
 import UIKit
 
 class ViewController: UIViewController {
     
-    var cardSet: [Int:Card] = [:]
-    var cardDeck: [Int:Int] = [:]
-    var discardedPile: [Int:Int] = [:]
-    var discardedPileArr: [Int] = []
+    let deck = Deck()
+    var set = [Int:Card]()
     
-    var playerOneHand: [Int:Int] = [:]
-    var playerTwoHand: [Int:Int] = [:]
-    var playerThreeHand: [Int:Int] = [:]
-    var playerFourHand: [Int:Int] = [:]
+    var stackPile = [Int: Int]()
+    var currentDeck = [Int:Int]()
+    var totalPlayers = [Int:Any]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        deck.createDeck()
+        //1. new deck (needs to come first)
+        currentDeck = deck.cardDeck
+        //dump("DECK >>>> \(newDeck)")
         
-        let myDeck = Deck()
-        myDeck.createDeck()
+        //2. create set (permanent throughout whole game)
+        set = deck.cardSet
+        //dump("SET >>>> \(set)")
+        //dump(set[1]) //BLUE 0 - ID: 1 - AMOUNT: 1
         
-        cardDeck = myDeck.cardDeck
-        cardSet = myDeck.cardSet
-        discardedPile = myDeck.discradedPile
-        //print(discardedPile)
         
-        initialGameStart()
+        //3. create new hand from deck
+        //newHand()
         
-        print(playerOneHand)
-        print(playerTwoHand)
-        print(playerThreeHand)
-        print(playerFourHand)
-        print(cardDeck)
-        print(discardedPile)
+        //access one card
+        //dump(set[hand[1]]?.color)
+        
+        //4. setting new game if new game button hit
+        //newGame()
+        numOfplayers(2)
+        
+        //checking currentDeck update after dealt hands
+        //dump(currentDeck.sorted(by: { $0.0 < $1.0}))
+        dump("New game 2 players >>> \(totalPlayers)")
+        
+        //prep - who goes first
+        whoseFirst()
     }
     
-    //Initial Game Start - Populate All Player Hands
+    //MARK: - Setup game
     
-    private func initialGameStart() {
-        playerOneHand = populateInitialPlayerHand()
-        playerTwoHand = populateInitialPlayerHand()
-        playerThreeHand = populateInitialPlayerHand()
-        playerFourHand = populateInitialPlayerHand()
-        
-        generateDealCard()
+    func newGame() {
+        currentDeck = deck.cardDeck
+        numOfplayers(2)
     }
     
-    //Draw a new card
-    
-    private func drawCard(playerHand: [Int:Int]) -> [Int:Int] {
-        
-        var returnHand = playerHand
-        var generatedId = randomCardIdGenerator()
-        
-        while cardDeck[generatedId] == 0 {
-            generatedId = randomCardIdGenerator()
-        }
-        if returnHand[generatedId] != nil {
-            returnHand[generatedId]! += 1
-            cardDeck[generatedId]! -= 1
-            discardedPile[generatedId]! += 1
-            discardedPileArr.append(generatedId)
-        }
-        else {
-            returnHand[generatedId] = 1
-            cardDeck[generatedId]! -= 1
-            discardedPile[generatedId]! += 1
-            discardedPileArr.append(generatedId)
-        }
-        return returnHand
-    }
-    
-    //Populate an Initial Player Hand - 7 Cards
-    
-    private func populateInitialPlayerHand() -> [Int:Int] {
-        
-        var returnHand: [Int:Int] = [:]
-        
+    func newHand() -> [Int] {
+        var hand = [Int]()
         for _ in 1...7 {
-            var generatedId = randomCardIdGenerator()
+            let cardID = Int(arc4random_uniform(UInt32(set.count)) + 1)
             
-            while cardDeck[generatedId] == 0 {
-                generatedId = randomCardIdGenerator()
-            }
-            if returnHand[generatedId] != nil {
-                returnHand[generatedId]! += 1
-                cardDeck[generatedId]! -= 1
-                discardedPile[generatedId]! += 1
-                discardedPileArr.append(generatedId)
-            }
-            else {
-                returnHand[generatedId] = 1
-                cardDeck[generatedId]! -= 1
-                discardedPile[generatedId]! += 1
-                discardedPileArr.append(generatedId)
+            if currentDeck[cardID]! > 0 {
+                hand.append(cardID)
+                currentDeck[cardID]! -= 1
             }
         }
-        return returnHand
+        //dump("players and hands >>>> \(hand)")
+        return hand
     }
     
-    //Generate the Deal Card on the Table
-    
-    func generateDealCard() {
-        
-        var generatedId = randomCardIdGenerator()
-        
-        while cardDeck[generatedId] == 0 {
-            generatedId = randomCardIdGenerator()
+    func numOfplayers(_ players: Int) {
+        for num in 1...players {
+            totalPlayers[num] = self.newHand()
         }
-        discardedPileArr.append(generatedId)
     }
-
-    func chooseUserHand()  {
-        
+    
+    //MARK: - Gameplay
+    
+    func whoseFirst() {
+        let goesFirst = Int(arc4random_uniform(UInt32(totalPlayers.count)) + 1)
+        print("Player \(goesFirst) goes first")
     }
-}
-
-//Generating a Random Card Id - 0 to 53
-
-func randomCardIdGenerator() -> Int {
     
-    return Int(arc4random_uniform(54))
+    /* conditions to consider */
+    /*
+     >> can only place card down this color if...
+     > number smaller
+     > same color
+     >> special placements
+     > stack same number && same color
+     > stack same number but diff color
+     
+     >> changes on board
+     > add card to "stack pile"
+     > take out card from each hand (dictionary value change)
+     */
+    
+    
+    
     
 }
-
-

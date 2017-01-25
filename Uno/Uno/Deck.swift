@@ -9,6 +9,7 @@
 import Foundation
 
 class Deck {
+
     let colors: [Color:Int] = [.red : 0, .green : 1, .blue : 2, .yellow : 3]
     let types: [Type] = [.regular, .reverse, .skip, .drawTwo, .wild, .wildDrawFour]
     var cardSet: [Int:Card] = [:]
@@ -56,7 +57,7 @@ class Deck {
         }
     }
     
-    
+
     //    let cardDeck = createDeck()
     //    var sum = 0
     //    for (key,value) in cardDeck {
