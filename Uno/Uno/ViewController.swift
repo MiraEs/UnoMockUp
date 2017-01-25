@@ -16,8 +16,14 @@ class ViewController: UIViewController {
     let deck = Deck()
     var currentDeck = [Int:Int]()
     var set = [Int:Card]()
-    var hand = [Int]()
-    var players = [Int:Any]()
+    
+    var totalPlayers = [Int:Any]()
+    
+    //is there a way to refactor this?
+    var playerOne = [Int: Any]()
+    var playerTwo = [Int: Any]()
+    var playerThree = [Int: Any]()
+    var playerFour = [Int: Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,24 +44,28 @@ class ViewController: UIViewController {
         //access one card
         //dump(set[hand[1]]?.color)
         
-        newGame(2)
-        dump("New game 2 players >>> \(players)")
+        //newGame()
+        numOfplayers(2)
+        
+        //checking currentDeck update after dealt hands
+        dump(currentDeck.sorted(by: { $0.0 < $1.0}))
+        dump("New game 2 players >>> \(totalPlayers)")
     }
     
-    func newGame(_ players: Int) {
+    func newGame() {
         currentDeck = deck.createDeck()
-        newHand()
-        numOfplayers(players)
+        numOfplayers(2)
     }
     
     func newHand() -> [Int] {
-            for _ in 1...7 {
-                let cardID = Int(arc4random_uniform(UInt32(set.count)) + 1)
-                
-                if currentDeck[cardID]! > 0 {
-                    hand.append(cardID)
-                    currentDeck[cardID]! -= 1
-                }
+        var hand = [Int]()
+        for _ in 1...7 {
+            let cardID = Int(arc4random_uniform(UInt32(set.count)) + 1)
+            
+            if currentDeck[cardID]! > 0 {
+                hand.append(cardID)
+                currentDeck[cardID]! -= 1
+            }
         }
         //dump("players and hands >>>> \(hand)")
         return hand
@@ -63,7 +73,7 @@ class ViewController: UIViewController {
     
     func numOfplayers(_ players: Int) {
         for num in 1...players {
-            self.players[num] = self.newHand()
+            totalPlayers[num] = self.newHand()
         }
     }
     
