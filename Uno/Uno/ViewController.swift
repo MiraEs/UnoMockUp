@@ -23,9 +23,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        deck.createDeck()
         //1. new deck (needs to come first)
-        currentDeck = deck.createDeck()
+        currentDeck = deck.cardDeck
         //dump("DECK >>>> \(newDeck)")
         
         //2. create set (permanent throughout whole game)
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     //MARK: - Setup game
     
     func newGame() {
-        currentDeck = deck.createDeck()
+        currentDeck = deck.cardDeck
         numOfplayers(2)
     }
     
@@ -89,6 +89,7 @@ class ViewController: UIViewController {
     /* conditions to consider */
     /*
      >> can only place card down this color if...
+
         > number smaller
         > same color
      >> special placements
@@ -100,11 +101,8 @@ class ViewController: UIViewController {
         > take out card from each hand (dictionary value change)
      */
     
-    
-    
-    
-    
+
+    //slkdfnskdlfnskdnf
     
     
 }
-
