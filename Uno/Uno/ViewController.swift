@@ -65,19 +65,25 @@ class ViewController: UIViewController {
         if returnHand[generatedId] != nil {
             returnHand[generatedId]! += 1
             cardDeck[generatedId]! -= 1
-            discardedPile[generatedId]! += 1
-            discardedPileArr.append(generatedId)
+            //            discardedPile[generatedId]! += 1
+            //            discardedPileArr.append(generatedId)
         }
         else {
             returnHand[generatedId] = 1
             cardDeck[generatedId]! -= 1
-            discardedPile[generatedId]! += 1
-            discardedPileArr.append(generatedId)
+            //            discardedPile[generatedId]! += 1
+            //            discardedPileArr.append(generatedId)
         }
         return returnHand
     }
     
     //Populate an Initial Player Hand - 7 Cards
+//    func numOfPlayers(_ sender: Int) {
+//        for i in 1...sender {
+//            
+//        }
+//        
+//    }
     
     private func populateInitialPlayerHand() -> [Int:Int] {
         
@@ -92,14 +98,14 @@ class ViewController: UIViewController {
             if returnHand[generatedId] != nil {
                 returnHand[generatedId]! += 1
                 cardDeck[generatedId]! -= 1
-                discardedPile[generatedId]! += 1
-                discardedPileArr.append(generatedId)
+                //                discardedPile[generatedId]! += 1
+                //                discardedPileArr.append(generatedId)
             }
             else {
                 returnHand[generatedId] = 1
                 cardDeck[generatedId]! -= 1
-                discardedPile[generatedId]! += 1
-                discardedPileArr.append(generatedId)
+                //                discardedPile[generatedId]! += 1
+                //                discardedPileArr.append(generatedId)
             }
         }
         return returnHand
@@ -114,9 +120,10 @@ class ViewController: UIViewController {
         while cardDeck[generatedId] == 0 {
             generatedId = randomCardIdGenerator()
         }
+        discardedPile[generatedId]! += 1
         discardedPileArr.append(generatedId)
     }
-
+    
     func chooseUserHand()  {
         
     }
