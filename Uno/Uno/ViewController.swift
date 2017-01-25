@@ -14,16 +14,12 @@ import UIKit
 class ViewController: UIViewController {
     
     let deck = Deck()
-    var currentDeck = [Int:Int]()
     var set = [Int:Card]()
     
+    var stackPile = [Int: Int]()
+    var currentDeck = [Int:Int]()
     var totalPlayers = [Int:Any]()
     
-    //is there a way to refactor this?
-    var playerOne = [Int: Any]()
-    var playerTwo = [Int: Any]()
-    var playerThree = [Int: Any]()
-    var playerFour = [Int: Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +40,19 @@ class ViewController: UIViewController {
         //access one card
         //dump(set[hand[1]]?.color)
         
+        //4. setting new game if new game button hit
         //newGame()
         numOfplayers(2)
         
         //checking currentDeck update after dealt hands
-        dump(currentDeck.sorted(by: { $0.0 < $1.0}))
+        //dump(currentDeck.sorted(by: { $0.0 < $1.0}))
         dump("New game 2 players >>> \(totalPlayers)")
+        
+        //prep - who goes first
+        whoseFirst()
     }
+    
+    //MARK: - Setup game
     
     func newGame() {
         currentDeck = deck.createDeck()
@@ -76,6 +78,29 @@ class ViewController: UIViewController {
             totalPlayers[num] = self.newHand()
         }
     }
+    
+    //MARK: - Gameplay
+    
+    func whoseFirst() {
+        let goesFirst = Int(arc4random_uniform(UInt32(totalPlayers.count)) + 1)
+        print("Player \(goesFirst) goes first")
+    }
+    
+    /* conditions to consider */
+    /*
+     >> can only place card down this color if...
+        > number smaller
+        > same color
+     >> special placements
+        > stack same number && same color
+        > stack same number but diff color
+     
+     >> changes on board
+        > add card to "stack pile"
+        > take out card from each hand (dictionary value change)
+     */
+    
+    
     
     
     
