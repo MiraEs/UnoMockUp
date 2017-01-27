@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     
     var stackPile = [Int: Int]()
     var currentDeck = [Int:Int]()
-    var totalPlayers = [Int:Any]()
+    lazy var totalPlayers = [Int:Any]()
     
     
     override func viewDidLoad() {
@@ -50,7 +50,35 @@ class ViewController: UIViewController {
         
         //prep - who goes first
         whoseFirst()
+        
+        test()
+        
     }
+    
+    //MARK: - Testing
+    func test() {
+        dump("Mock pick card from hand >>> \(totalPlayers[1])")
+        guard let playerOne = totalPlayers[1] as? [Int] else { return }
+        for card in playerOne {
+            //dump("Card id \(card)")
+            //dump("Card property \(set[card]?.color)")
+            dump("test gameplay \(playTest(card))")
+        }
+        
+        
+    }
+    
+    func playTest(_ cardID: Int, _ stackCardID: Int = 35) {
+        switch true {
+        case set[cardID]?.color == set[stackCardID]?.color:
+            print("player card matches stack card")
+        default:
+            print("Not the same")
+        }
+    }
+    
+    
+    /************/
     
     //MARK: - Setup game
     
@@ -86,22 +114,28 @@ class ViewController: UIViewController {
         print("Player \(goesFirst) goes first")
     }
     
+    /*
+     func playedCard(_ player: Int, _ playerCardID: Int, _ stackCardID: Int) {
+     
+     }
+     */
+    
     /* conditions to consider */
     /*
      >> can only place card down this color if...
-
-        > number smaller
-        > same color
+     
+     > number smaller
+     > same color
      >> special placements
-        > stack same number && same color
-        > stack same number but diff color
+     > stack same number && same color
+     > stack same number but diff color
      
      >> changes on board
-        > add card to "stack pile"
-        > take out card from each hand (dictionary value change)
+     > add card to "stack pile"
+     > take out card from each hand (dictionary value change)
      */
     
-
+    
     //slkdfnskdlfnskdnf
     
     
